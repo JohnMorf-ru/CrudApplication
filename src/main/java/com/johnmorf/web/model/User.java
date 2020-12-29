@@ -1,10 +1,23 @@
 package com.johnmorf.web.model;
 
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class User {
 
     private int id;
+
+    @NotNull(message = "Поле \"Имя\" не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Имя должно быть от 2 до 30 символов")
     private String name;
+
+    @NotNull(message = "Поле \"Фамилия\" не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Фамилия должна быть от 2 до 30 символов")
     private String lastName;
+
+    @Min(value = 0, message = "Возраст должен быть положительным числом")
     private int age;
 
     public User() {

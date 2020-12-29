@@ -9,12 +9,15 @@
 <form th:method="PATCH" th:action="@{/users/{id}(id = ${user.getId()})}" th:object="${user}">
     <label for="name">Изменить имя: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: crimson" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     <br/>
     <label for="lastName">Изменить фамилию: </label>
     <input type="text" th:field="*{lastName}" id="lastName"/>
+    <div style="color: crimson" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
     <br/>
     <label for="name">Изменить возраст: </label>
     <input type="text" th:field="*{age}" id="age"/>
+    <div style="color: crimson" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
     <br/>
     <input type="submit" value="Сохранить!"/>
 </form>

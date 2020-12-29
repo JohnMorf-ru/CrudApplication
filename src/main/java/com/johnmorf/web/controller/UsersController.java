@@ -5,7 +5,10 @@ import com.johnmorf.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -36,7 +39,10 @@ public class UsersController {
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "users/new";
+        }
         userDao.addUser(user);
         return "redirect:/users";
     }
@@ -48,7 +54,11 @@ public class UsersController {
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute User user, @PathVariable int id) {
+    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+                             @PathVariable int id) {
+        if (bindingResult.hasErrors()) {
+            return "users/edit";
+        }
         userDao.update(id, user);
         return "redirect:/users";
     }
@@ -59,3 +69,4 @@ public class UsersController {
         return "redirect:/users";
     }
 }
+
