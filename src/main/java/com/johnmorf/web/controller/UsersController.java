@@ -1,7 +1,7 @@
 package com.johnmorf.web.controller;
 
-import com.johnmorf.web.Dao.UserDao;
 import com.johnmorf.web.model.User;
+import com.johnmorf.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,22 +14,22 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UserDao userDao;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UserDao userDao) {
-        this.userDao = userDao;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
     public String showUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userDao.getUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "users/showUser";
     }
 
     @GetMapping()
     public String showAllUsers(Model model) {
-        model.addAttribute("users", userDao.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers());
         return "users/allUsers";
     }
 
@@ -43,13 +43,13 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "users/new";
         }
-        userDao.addUser(user);
+        userService.addUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userDao.getUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "users/edit";
     }
 
@@ -59,13 +59,13 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "users/edit";
         }
-        userDao.update(id, user);
+        userService.updateUser(id, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable int id) {
-        userDao.delete(id);
+        userService.deleteUser(id);
         return "redirect:/users";
     }
 }
