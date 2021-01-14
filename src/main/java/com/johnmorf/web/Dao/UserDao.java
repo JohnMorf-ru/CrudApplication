@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Component
@@ -14,10 +15,10 @@ public class UserDao {
     private EntityManager entityManager;
 
     public List<User> getAllUsers() {
-        return entityManager.createQuery("from User").getResultList();
+        return entityManager.createQuery("FROM User").getResultList();
     }
 
-    public User getUser(int id) {
+    public User getUser(Long id) {
         return entityManager.find(User.class, id);
     }
 
@@ -25,11 +26,17 @@ public class UserDao {
         entityManager.merge(user);
     }
 
-    public void update(int id, User updatedUser) {
+    public void update(Long id, User updatedUser) {
         entityManager.merge(updatedUser);
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         entityManager.remove(getUser(id));
+    }
+
+    public User findByUserName(String username) {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.email = :username", User.class);
+        return query.setParameter("username", username).getSingleResult();
     }
 }

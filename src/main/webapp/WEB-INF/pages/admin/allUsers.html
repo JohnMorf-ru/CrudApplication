@@ -7,14 +7,20 @@
 <body>
 
 <li th:each="user : ${users}">
-    <a th:href="@{/users/{id}(id=${user.getId()})}"
+    <a th:href="@{/admin/{id}(id=${user.getId()})}"
        th:text="${user.getName() + ' ' + user.getLastName()}"></a>
 </li>
 <br/>
 <hr/>
 
-<form th:method="GET" th:action="@{/users/new}">
+<form th:method="GET" th:action="@{/admin/new}">
     <input type="submit" value="Добавить нового пользователя"/>
+</form>
+<br/>
+<hr/>
+
+<form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="LOGOUT"/>
 </form>
 
 </body>
