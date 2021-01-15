@@ -6,36 +6,36 @@
 </head>
 <body>
 
-<p style="color: blue" th:text="'Имя = ' + ${user.getName()}"></p>
-<p th:text="'Фамилия = ' + ${user.getLastName()}"></p>
-<p th:text="'Возраст = ' + ${user.getAge()}"></p>
-<p th:text="'ID = ' + ${user.getId()}"></p>
-<p th:text="'email = ' + ${user.email}"></p>
-<p th:text="'password = ' + ${user.password}"></p>
-<p>Роли: </p>
-<div th:each="role : ${user.roles}">
-    <p th:text="${role.name}">
-</div>
-<br/>
-<hr/>
+    <p th:text="'Имя = ' + ${user.getName()}"></p>
+    <p th:text="'Фамилия = ' + ${user.getLastName()}"></p>
+    <p th:text="'Возраст = ' + ${user.getAge()}"></p>
+    <p th:text="'ID = ' + ${user.getId()}"></p>
+    <p th:text="'email = ' + ${user.email}"></p>
+    <p th:text="'password = ' + ${user.password}"></p>
+    <p>Роли: </p>
+    <div th:each="role : ${user.roles}">
+        <p th:text="${role.name}">
+    </div>
+    <br/>
+    <hr/>
 
-<form th:method="GET" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
-    <input type="submit" value="Редактировать"/>
-</form>
+    <form th:method="GET" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+        <input type="submit" value="Редактировать"/>
+    </form>
 
-<form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-    <input type="submit" value="Удалить пользователя"/>
-</form>
+    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+        <input type="submit" value="Удалить пользователя"/>
+    </form>
 
-<form th:method="GET" th:action="@{/admin}">
-    <input type="submit" value="Список пользователей"/>
-</form>
-<br/>
-<hr/>
+    <form th:method="GET" th:action="@{/admin}">
+        <input type="submit" value="Список пользователей"/>
+    </form>
+    <br/>
+    <hr/>
 
-<form th:method="POST" th:action="@{/logout}">
-    <input type="submit" value="LOGOUT"/>
-</form>
+    <form th:method="POST" th:action="@{/logout}">
+        <input type="submit" value="LOGOUT"/>
+    </form>
 
 </body>
 </html>

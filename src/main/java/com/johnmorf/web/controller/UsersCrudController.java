@@ -45,7 +45,6 @@ public class UsersCrudController {
         if (bindingResult.hasErrors()) {
             return "admin/new";
         }
-        user.setRoles(Collections.singleton(new Role("ROLE_USER")));
         userService.addUser(user);
         return "redirect:/admin";
     }
